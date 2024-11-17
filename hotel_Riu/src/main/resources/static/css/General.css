@@ -1,0 +1,28 @@
+/* Colores Primarios */
+:root {
+    --primary-color: #3498db;    /* Azul */
+    --primary-dark: #2980b9;     /* Azul Oscuro */
+    --primary-light: #5dade2;    /* Azul Claro */
+}
+
+/* Colores Secundarios */
+:root {
+    --secondary-color: #2ecc71;  /* Verde */
+    --secondary-dark: #27ae60;   /* Verde Oscuro */
+    --secondary-light: #58d68d;  /* Verde Claro */
+}
+
+/* Colores Neutros */
+:root {
+    --white-color: #ffffff;      /* Blanco */
+    --black-color: #000000;      /* Negro */
+    --gray-light: #ecf0f1;       /* Gris Claro */
+    --gray-dark: #95a5a6;        /* Gris Oscuro */
+}
+
+/* Colores de Alerta */
+:root {
+    --success-color: #28a745;    /* Verde de Éxito */
+    --warning-color: #ffc107;    /* Amarillo de Advertencia */
+    --error-color: #dc3545;      /* Rojo de Error */
+}
