@@ -385,3 +385,234 @@ END;
 
 /
 
+--Procedimentos Almacenados de Persona
+CREATE OR REPLACE PROCEDURE insertar_persona( p_tipo_documento IN NVARCHAR2, p_cedula IN NVARCHAR2,
+p_telefono IN NVARCHAR2, p_correo IN NVARCHAR2, p_nombre IN NVARCHAR2, p_primer_apellido IN NVARCHAR2,
+p_segundo_apellido IN NVARCHAR2) 
+AS
+BEGIN
+    INSERT INTO PERSONA_TB (
+        TIPO_DOCUMENTO, CEDULA, TELEFONO, CORREO, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO
+    ) VALUES (
+        p_tipo_documento, p_cedula, p_telefono, p_correo, p_nombre, p_primer_apellido, p_segundo_apellido
+    );
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error al insertar persona: ' || SQLERRM);
+END;
+
+CREATE OR REPLACE PROCEDURE consultar_persona (p_id_persona IN NUMBER) 
+AS
+    p_tipo_documento NVARCHAR2(100);
+    p_cedula NVARCHAR2(100);
+    p_telefono NVARCHAR2(100);
+    p_correo NVARCHAR2(100);
+    p_nombre NVARCHAR2(100);
+    p_primer_apellido NVARCHAR2(100);
+    p_segundo_apellido NVARCHAR2(100);
+BEGIN
+    SELECT TIPO_DOCUMENTO, CEDULA, TELEFONO, CORREO, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO
+    INTO p_tipo_documento, p_cedula, p_telefono, p_correo, p_nombre, p_primer_apellido, p_segundo_apellido
+    FROM PERSONA_TB
+    WHERE ID_PERSONA = p_id_persona;
+
+    DBMS_OUTPUT.PUT_LINE('Datos de la Persona:');
+    DBMS_OUTPUT.PUT_LINE('Tipo de Documento: ' || p_tipo_documento);
+    DBMS_OUTPUT.PUT_LINE('Cédula: ' || p_cedula);
+    DBMS_OUTPUT.PUT_LINE('Teléfono: ' || p_telefono);
+    DBMS_OUTPUT.PUT_LINE('Correo: ' || p_correo);
+    DBMS_OUTPUT.PUT_LINE('Nombre: ' || p_nombre);
+    DBMS_OUTPUT.PUT_LINE('Primer Apellido: ' || p_primer_apellido);
+    DBMS_OUTPUT.PUT_LINE('Segundo Apellido: ' || p_segundo_apellido);
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No se encontraron datos para el ID de persona proporcionado');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
+
+
+
+CREATE OR REPLACE PROCEDURE eliminar_persona ( p_id_persona IN NUMBER) 
+AS
+BEGIN
+    DELETE FROM PERSONA_TB
+    WHERE ID_PERSONA = p_id_persona;
+
+    DBMS_OUTPUT.PUT_LINE('Persona con ID ' || p_id_persona || ' ha sido eliminada.');
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No se encontraron datos para el ID de persona proporcionado');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
+
+CREATE OR REPLACE PROCEDURE actualizar_persona (p_id_persona IN NUMBER, p_tipo_documento IN NVARCHAR2,
+p_cedula IN NVARCHAR2, p_telefono IN NVARCHAR2, p_correo IN NVARCHAR2, p_nombre IN NVARCHAR2,
+p_primer_apellido IN NVARCHAR2, p_segundo_apellido IN NVARCHAR2) 
+AS
+BEGIN
+    UPDATE PERSONA_TB
+    SET TIPO_DOCUMENTO   = p_tipo_documento,
+        CEDULA           = p_cedula,
+        TELEFONO         = p_telefono,
+        CORREO           = p_correo,
+        NOMBRE           = p_nombre,
+        PRIMER_APELLIDO  = p_primer_apellido,
+        SEGUNDO_APELLIDO = p_segundo_apellido
+    WHERE ID_PERSONA = p_id_persona;
+
+    DBMS_OUTPUT.PUT_LINE('La persona con ID ' || p_id_persona || ' ha sido actualizada.');
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No se encontraron datos para el ID de persona proporcionado');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
+
+--Procedimientos Almacenados de Empleado
+
+CREATE OR REPLACE PROCEDURE insertar_empleado(p_id_hotel IN NUMBER, p_id_persona IN NUMBER,
+p_estado IN NVARCHAR2, p_puesto IN NVARCHAR2, p_salario IN NUMBER, p_fecha_ingreso IN DATE) 
+AS
+BEGIN
+    INSERT INTO EMPLEADO_TB (ID_HOTEL, ID_PERSONA, ESTADO, PUESTO, SALARIO, FECHA_INGRESO) 
+    VALUES (p_id_hotel, p_id_persona, p_estado, p_puesto, p_salario, p_fecha_ingreso);
+    DBMS_OUTPUT.PUT_LINE('Empleado insertado correctamente.');
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error al insertar empleado: ' || SQLERRM);
+END;
+
+
+CREATE OR REPLACE PROCEDURE consultar_empleado(p_id_empleado IN NUMBER) 
+AS
+    p_id_hotel NUMBER;
+    p_id_persona NUMBER;
+    p_estado NVARCHAR2(100);
+    p_puesto NVARCHAR2(150);
+    p_salario NUMBER;
+    p_fecha_ingreso DATE;
+BEGIN
+    SELECT ID_HOTEL, ID_PERSONA, ESTADO, PUESTO, SALARIO, FECHA_INGRESO
+    INTO p_id_hotel, p_id_persona, p_estado, p_puesto, p_salario, p_fecha_ingreso
+    FROM EMPLEADO_TB
+    WHERE ID_EMPLEADO = p_id_empleado;
+
+    DBMS_OUTPUT.PUT_LINE('Datos del Empleado:');
+    DBMS_OUTPUT.PUT_LINE('ID Hotel: ' || p_id_hotel);
+    DBMS_OUTPUT.PUT_LINE('ID Persona: ' || p_id_persona);
+    DBMS_OUTPUT.PUT_LINE('Estado: ' || p_estado);
+    DBMS_OUTPUT.PUT_LINE('Puesto: ' || p_puesto);
+    DBMS_OUTPUT.PUT_LINE('Salario: ' || p_salario);
+    DBMS_OUTPUT.PUT_LINE('Fecha de Ingreso: ' || p_fecha_ingreso);
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No se encontraron datos para el ID de empleado proporcionado');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
+
+
+CREATE OR REPLACE PROCEDURE eliminar_empleado( p_id_empleado IN NUMBER) 
+AS
+BEGIN
+    DELETE FROM EMPLEADO_TB
+    WHERE ID_EMPLEADO = p_id_empleado;
+    DBMS_OUTPUT.PUT_LINE('Empleado con ID ' || p_id_empleado || ' ha sido eliminado.');
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No se encontraron datos para el ID de empleado proporcionado');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
+
+
+CREATE OR REPLACE PROCEDURE actualizar_empleado(p_id_empleado IN NUMBER, p_id_hotel IN NUMBER,
+p_id_persona IN NUMBER, p_estado IN NVARCHAR2, p_puesto IN NVARCHAR2, p_salario IN NUMBER,
+p_fecha_ingreso IN DATE) 
+AS
+BEGIN
+    UPDATE EMPLEADO_TB
+    SET ID_HOTEL       = p_id_hotel,
+        ID_PERSONA     = p_id_persona,
+        ESTADO         = p_estado,
+        PUESTO         = p_puesto,
+        SALARIO        = p_salario,
+        FECHA_INGRESO  = p_fecha_ingreso
+    WHERE ID_EMPLEADO = p_id_empleado;
+    DBMS_OUTPUT.PUT_LINE('El empleado con ID ' || p_id_empleado || ' ha sido actualizado.');
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No se encontraron datos para el ID de empleado proporcionado');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
+
+
+
+--Procedimientos Almacenados de Cliente
+
+CREATE OR REPLACE TRIGGER ID_CLIENTE_AUTOINCREMENTO_TRG
+BEFORE INSERT ON CLIENTE_TB
+FOR EACH ROW
+BEGIN
+  SELECT ID_CLIENTE_SEQ.NEXTVAL INTO :NEW.ID_CLIENTE FROM DUAL;
+END;
+
+
+CREATE OR REPLACE PROCEDURE insertar_cliente(p_id_persona IN NUMBER) 
+AS
+BEGIN
+    INSERT INTO CLIENTE_TB (ID_PERSONA) 
+        VALUES (p_id_persona);
+    DBMS_OUTPUT.PUT_LINE('Cliente insertado correctamente.');
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error al insertar cliente: ' || SQLERRM);
+END;
+
+
+
+CREATE OR REPLACE PROCEDURE consultar_cliente(p_id_cliente IN NUMBER) 
+AS 
+p_id_persona NUMBER;
+BEGIN
+    SELECT ID_PERSONA
+    INTO p_id_persona
+    FROM CLIENTE_TB
+    WHERE ID_CLIENTE = p_id_cliente;
+    DBMS_OUTPUT.PUT_LINE('Datos del Cliente:');
+    DBMS_OUTPUT.PUT_LINE('ID Persona: ' || p_id_persona);
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No se encontraron datos para el ID de cliente proporcionado');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
+
+CREATE OR REPLACE PROCEDURE eliminar_cliente(
+    p_id_cliente IN NUMBER
+) AS
+BEGIN
+    DELETE FROM CLIENTE_TB
+    WHERE ID_CLIENTE = p_id_cliente;
+
+    DBMS_OUTPUT.PUT_LINE('Cliente con ID ' || p_id_cliente || ' ha sido eliminado.');
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No se encontraron datos para el ID de cliente proporcionado');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
+
+
+
