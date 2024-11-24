@@ -1,13 +1,13 @@
-package com.Hotel_Riu;
+package com.hotel_riu;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ProyectoBaseDeDatosApplication {
+public class HotelApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProyectoBaseDeDatosApplication.class, args);
+		SpringApplication.run(HotelApplication.class, args);
 	}
 
 }
