@@ -23,4 +23,5 @@ public class Platillo {
 
     @Column(name = "CANTIDAD")
     private Integer cantidad;
+    
 }
