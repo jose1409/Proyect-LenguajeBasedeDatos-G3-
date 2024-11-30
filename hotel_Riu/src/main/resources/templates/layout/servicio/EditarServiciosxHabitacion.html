@@ -1,0 +1,100 @@
+<div th:fragment="EditarServiciosxHabitacion">
+    <div class="container my-4">
+        <!-- Cabecera -->
+        <div class="row p-4 mb-5" style="background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <p class="mb-0 h1">Asignación de Servicios a Habitaciones</p>
+                    <p class="mb-0 mt-2 h4 text-muted">Gestión Hotelera</p>
+                </div>
+                <button onclick="loadComponent('/servicio/AsignarServicios')" class="btn btn-primary">Volver</button>
+            </div>
+        </div>
+
+        <!-- Información de la habitación -->
+        <div class="row mb-4">
+            <div class="col-12" style="background-color: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                <h4 class="mb-4">Habitación Seleccionada</h4>
+                <table class="table table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th># Habitación</th>
+                            <th>Precio</th>
+                            <th>Capacidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img
+                                        src="https://www.govisitcostarica.co.cr/images/uploads/detail/mob/g-hotel-suerre-deluxe-rooms-outside.jpg"
+                                        class="rounded-circle"
+                                        alt="Imagen de la habitación"
+                                        style="width: 45px; height: 45px; margin-right: 10px;"
+                                        />
+                                    <span class="fw-bold" th:text="${habitacion.numeroHabitacion}"></span>
+                                </div>
+                            </td>
+                            <td th:text="${'₡' + habitacion.precio}"></td>
+                            <td th:text="${habitacion.capacidad}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Servicios asignados -->
+        <div class="row mb-4">
+            <div class="col-12" style="background-color: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                <h4 class="mb-4">Servicios Asignados</h4>
+                <div class="d-flex flex-wrap gap-3">
+                    <div class="card" style="width: 18rem;" th:each="servicio : ${serviciosxHabitacion}">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${servicio.nombre}"></h5>
+                            <p class="card-text">Numero: <span th:text="${servicio.idServicio}"></span></p>
+                            <!-- Botón para eliminar -->
+                            <button class="btn btn-danger w-100" 
+                                    th:onclick="'loadComponent(\'/servicio/eliminarxHabitacion/' + ${servicio.idServicio} + '/' + ${habitacion.idHabitacion} + '\', \'GET\')'">
+                                Eliminar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Todos los servicios -->
+        <div class="row mb-4">
+            <div class="col-12" style="background-color: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                <h4 class="mb-4">Todos los Servicios</h4>
+                <div class="d-flex flex-wrap gap-3">
+                    <div class="card" style="width: 18rem;" th:each="servicio : ${servicio}">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${servicio.nombre}"></h5>
+                            <p class="card-text">Numero: <span th:text="${servicio.idServicio}"></span></p>
+
+                            <!-- Comparación directa: si el servicio ya está asignado a la habitación -->
+                            <button class="btn btn-secondary w-100 text-center"
+                                    th:if="${serviciosxHabitacion.contains(servicio)}" 
+                                    th:onclick="'loadComponent(\'/servicio/eliminarxHabitacion/' + ${servicio.idServicio} + '/' + ${habitacion.idHabitacion} + '\', \'GET\')'">
+                                Ya Asignado
+                            </button>
+
+                            <!-- Botón para añadir: visible solo si el servicio no está asignado -->
+                            <button class="btn btn-success w-100" 
+                                    th:if="${!serviciosxHabitacion.contains(servicio)}"
+                                    th:onclick="'loadComponent(\'/servicio/guardarxHabitacion/' + ${servicio.idServicio} + '/' + ${habitacion.idHabitacion} + '\', \'GET\')'">
+                                Añadir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

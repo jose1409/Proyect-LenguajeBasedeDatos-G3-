@@ -1,5 +1,6 @@
 package com.Hotel_Riu.service.impl;
 import com.Hotel_Riu.domain.Habitacion;
+import com.Hotel_Riu.domain.Servicio;
 import com.Hotel_Riu.service.HabitacionService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
@@ -110,6 +111,34 @@ public class HabitacionServiceImpl implements HabitacionService {
         // Ejecutar el procedimiento
         query.execute();
     }
-    
-    
+
+    @Override
+    public List<Servicio> getServicios(Long id) {
+        // Crear la consulta del procedimiento almacenado
+        StoredProcedureQuery query = em.createStoredProcedureQuery("OBTENER_SERVICIOS_POR_HABITACION", Servicio.class);
+
+        // Registrar el parámetro de entrada (ID de la habitación)
+        query.registerStoredProcedureParameter(
+                1, // posición del parámetro
+                Integer.class, // tipo del parámetro
+                ParameterMode.IN // modo del parámetro (entrada)
+        );
+        query.setParameter(1, id);
+
+        // Registrar el parámetro de salida (cursor)
+        query.registerStoredProcedureParameter(
+                2, // posición del parámetro de salida
+                void.class, // tipo del parámetro de salida
+                ParameterMode.REF_CURSOR // modo del parámetro
+        );
+
+        // Ejecutar el procedimiento
+        query.execute();
+
+        // Obtener los resultados
+        List<Servicio> resultado = query.getResultList();
+
+        return resultado;
+
+    }
 }
