@@ -1,5 +1,6 @@
 package com.Hotel_Riu.controller;
 import com.Hotel_Riu.domain.Habitacion;
+import com.Hotel_Riu.domain.Servicio;
 import com.Hotel_Riu.service.HabitacionService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +65,13 @@ public class HabitacionController {
     public String habitacionEliminar(@PathVariable("idHabitacion") Long idHabitacion) {
         _HabitacionService.eliminarHabitacion(idHabitacion);
         return "redirect:/habitacion/inicio";
+    }
+
+    //Utilizado para ver Servicios Vinculados a la habitacion
+    @GetMapping("/servicios/{idHabitacion}")
+    public String habitacionxServicios(@PathVariable("idHabitacion") Long idHabitacion, Model model) {
+        List<Servicio> resultado = _HabitacionService.getServicios(idHabitacion);
+        model.addAttribute("Servicios", resultado);
+        return "layout/habitacion/ServicioxHabitacion :: ServicioxHabitacion";
     }
 }

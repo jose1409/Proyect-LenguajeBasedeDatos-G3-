@@ -1,6 +1,7 @@
 package com.Hotel_Riu.service;
 
 import com.Hotel_Riu.domain.Habitacion;
+import com.Hotel_Riu.domain.Servicio;
 import java.util.List;
 
 public interface HabitacionService {
@@ -19,4 +20,7 @@ public interface HabitacionService {
     
     //Eliminar Habitacion
     public void eliminarHabitacion(Long id);
+    
+    //Ver Servicio asignados a la Habitacion Asignada
+    public List<Servicio> getServicios(Long id);
 }
