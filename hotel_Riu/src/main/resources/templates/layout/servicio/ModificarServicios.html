@@ -1,0 +1,29 @@
+<div th:fragment="ModificarServicios">
+    <div class="container-fluid">
+        <div class="row p-4 mb-5" style="background-color: white">
+            <div class="d-flex align-items-center" style="gap: 12px;">
+                <p class="mb-0 h1">Agregar Servicio</p>
+                <p class="mb-0 mt-2 h4">Gestion Hotelera</p>
+                <button onclick="loadComponent('/servicio/inicio')" class="btn btn-primary">Volver</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <form class="form-floating" th:action="@{/servicio/actualizar}" th:object="${servicio}" method="post">
+
+            <!-- Campo oculto para el ID -->
+            <input type="hidden" class="form-control" id="floatingIdHabitacion" th:field="*{idServicio}">
+
+            <!-- Campo para la descripción -->
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingNombre" th:field="*{nombre}" placeholder="Descripción" required>
+                <label for="floatingNombre">Nombre</label>
+            </div>
+
+            <!-- Botón de guardar -->
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+
+    </div>
+</div>
