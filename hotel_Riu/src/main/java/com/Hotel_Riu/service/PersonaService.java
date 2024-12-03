@@ -4,10 +4,23 @@
  */
 package com.Hotel_Riu.service;
 
+import com.Hotel_Riu.domain.Persona;
+import java.util.List;
+
 /**
  *
  * @author dvela
  */
 public interface PersonaService {
+    
+    public List<Persona>getPersonas();
+    
+    public void agregarPersona(Persona persona);
+    
+    public void actualizarPersona(Persona persona);
+    
+    public Persona obtenerPersonaPorID(Long id);
+    
+    public void eliminarPersona(Long id);
     
 }
