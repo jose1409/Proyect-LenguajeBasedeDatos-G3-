@@ -1,0 +1,72 @@
+<div th:fragment="AgregarEmpleado">
+    <div class="container-fluid">
+        <div class="row p-4 mb-5" style="background-color: white">
+            <div class="d-flex align-items-center" style="gap: 12px;">
+                <p class="mb-0 h1">Empleado</p>
+                <p class="mb-0 mt-2 h4">Gestión de Recursos Humanos</p>
+                <button onclick="loadComponent('/empleado/inicio')" class="btn btn-primary">Volver</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <form class="form-floating" th:action="@{/empleado/guardar}" th:object="${empleado}" method="post">
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingTipoDocumento" th:field="*{persona.tipo_documento}" placeholder="Tipo de Documento">
+                <label for="floatingTipoDocumento">Tipo de Documento</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingCedula" th:field="*{persona.cedula}" placeholder="Cédula">
+                <label for="floatingCedula">Cédula</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingTelefono" th:field="*{persona.telefono}" placeholder="Teléfono">
+                <label for="floatingTelefono">Teléfono</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="email" class="form-control" id="floatingCorreo" th:field="*{persona.correo}" placeholder="Correo">
+                <label for="floatingCorreo">Correo</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingNombre" th:field="*{persona.nombre}" placeholder="Nombre">
+                <label for="floatingNombre">Nombre</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingPrimerApellido" th:field="*{persona.primer_apellido}" placeholder="Primer Apellido">
+                <label for="floatingPrimerApellido">Primer Apellido</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingSegundoApellido" th:field="*{persona.segundo_apellido}" placeholder="Segundo Apellido">
+                <label for="floatingSegundoApellido">Segundo Apellido</label>
+            </div>
+
+            <div class="mb-3 form-floating">
+                <select class="form-control" id="floatingEstado" th:field="*{estado}" required>
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+                <label for="floatingEstado">Estado</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingPuesto" th:field="*{puesto}" placeholder="Puesto">
+                <label for="floatingPuesto">Puesto</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="number" class="form-control" id="floatingSalario" th:field="*{salario}" placeholder="Salario">
+                <label for="floatingSalario">Salario</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="date" class="form-control" id="floatingFechaIngreso" th:field="*{fecha_ingreso}" placeholder="Fecha de Ingreso">
+                <label for="floatingFechaIngreso">Fecha de Ingreso</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="number" class="form-control" id="floatingIdHotel" th:field="*{id_hotel}" placeholder="ID del Hotel">
+                <label for="floatingIdHotel">ID del Hotel</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>
+
+
