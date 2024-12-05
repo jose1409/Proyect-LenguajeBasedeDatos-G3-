@@ -10,7 +10,6 @@
     </div>
 
     <div class="container-fluid">
-
         <form class="form-floating" th:action="@{/empleado/guardar}" th:object="${empleado}" method="post">
             <div class="mb-3 form-floating">
                 <input type="text" class="form-control" id="floatingTipoDocumento" th:field="*{persona.tipo_documento}" placeholder="Tipo de Documento">
@@ -42,6 +41,13 @@
             </div>
 
             <div class="mb-3 form-floating">
+                <select class="form-control" id="floatingEstado" th:field="*{estado}" required>
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+                <label for="floatingEstado">Estado</label>
+            </div>
+            <div class="mb-3 form-floating">
                 <input type="text" class="form-control" id="floatingPuesto" th:field="*{puesto}" placeholder="Puesto">
                 <label for="floatingPuesto">Puesto</label>
             </div>
@@ -54,10 +60,6 @@
                 <label for="floatingFechaIngreso">Fecha de Ingreso</label>
             </div>
             <div class="mb-3 form-floating">
-                <input type="text" class="form-control" id="floatingEstado" th:field="*{estado}" placeholder="Estado">
-                <label for="floatingEstado">Estado</label>
-            </div>
-            <div class="mb-3 form-floating">
                 <input type="number" class="form-control" id="floatingIdHotel" th:field="*{id_hotel}" placeholder="ID del Hotel">
                 <label for="floatingIdHotel">ID del Hotel</label>
             </div>
@@ -66,6 +68,5 @@
         </form>
     </div>
 </div>
-
 
 

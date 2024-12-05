@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package com.Hotel_Riu.service.impl;
 
 import com.Hotel_Riu.domain.Empleado;
@@ -14,8 +13,9 @@ import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
 import jakarta.transaction.Transactional;
-import java.text.SimpleDateFormat;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,23 +23,24 @@ import org.springframework.stereotype.Service;
  *
  * @author dvela
  */
-
 @Service
 public class EmpleadoServiceImpl implements EmpleadoService {
 
     @PersistenceContext
     private EntityManager em;
-    
+
     @Autowired
     private PersonaService personaService;
+
+    private static final Logger logger = LoggerFactory.getLogger(PersonaServiceImpl.class);
 
     @Override
     public List<Empleado> getEmpleados() {
         StoredProcedureQuery query = em.createStoredProcedureQuery("OBTENER_EMPLEADOS", Empleado.class);
         query.registerStoredProcedureParameter(
-                1, 
-                void.class, 
-                ParameterMode.REF_CURSOR 
+                1,
+                void.class,
+                ParameterMode.REF_CURSOR
         );
 
         query.execute();
@@ -66,7 +67,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         query.setParameter(4, empleado.getPuesto());
         query.setParameter(5, empleado.getSalario());
         query.setParameter(6, new java.sql.Date(empleado.getFecha_ingreso().getTime()));
-        
+
         query.execute();
     }
 
@@ -75,6 +76,28 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     public void actualizarEmpleado(Empleado empleado) {
         Persona persona = empleado.getPersona();
         personaService.actualizarPersona(persona);
+
+        logger.debug("Ejecutando procedimiento almacenado para actualizar empleado con ID: {}", empleado.getId_empleado());
+
+        StoredProcedureQuery query = em.createStoredProcedureQuery("ACTUALIZAR_EMPLEADO");
+
+        query.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);    // ID_EMPLEADO
+        query.registerStoredProcedureParameter(2, Long.class, ParameterMode.IN);    // ID_HOTEL
+        query.registerStoredProcedureParameter(3, Long.class, ParameterMode.IN);    // ID_PERSONA
+        query.registerStoredProcedureParameter(4, String.class, ParameterMode.IN);  // ESTADO
+        query.registerStoredProcedureParameter(5, String.class, ParameterMode.IN);  // PUESTO
+        query.registerStoredProcedureParameter(6, Double.class, ParameterMode.IN);  // SALARIO
+        query.registerStoredProcedureParameter(7, java.sql.Date.class, ParameterMode.IN);  // FECHA_INGRESO
+
+        query.setParameter(1, empleado.getId_empleado());
+        query.setParameter(2, empleado.getId_hotel());
+        query.setParameter(3, empleado.getPersona().getId_persona());  // Pasar el ID de Persona
+        query.setParameter(4, empleado.getEstado());
+        query.setParameter(5, empleado.getPuesto());
+        query.setParameter(6, empleado.getSalario());
+        query.setParameter(7, new java.sql.Date(empleado.getFecha_ingreso().getTime()));
+
+        query.execute();
     }
 
     @Override
