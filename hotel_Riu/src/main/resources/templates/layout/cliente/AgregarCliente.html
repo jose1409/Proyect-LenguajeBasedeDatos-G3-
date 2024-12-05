@@ -1,0 +1,48 @@
+<div th:fragment="AgregarCliente">
+    <div class="container-fluid">
+        <div class="row p-4 mb-5" style="background-color: white">
+            <div class="d-flex align-items-center" style="gap: 12px;">
+                <p class="mb-0 h1">Agregar Cliente</p>
+                <p class="mb-0 mt-2 h4">Gestión de Clientes</p>
+                <button onclick="loadComponent('/cliente/inicio')" class="btn btn-primary">Volver</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <form class="form-floating" th:action="@{/cliente/guardar}" th:object="${cliente}" method="post">
+            <!-- Campos para Persona -->
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingTipoDocumento" th:field="*{persona.tipo_documento}" placeholder="Tipo de Documento">
+                <label for="floatingTipoDocumento">Tipo de Documento</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingCedula" th:field="*{persona.cedula}" placeholder="Cédula">
+                <label for="floatingCedula">Cédula</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingTelefono" th:field="*{persona.telefono}" placeholder="Teléfono">
+                <label for="floatingTelefono">Teléfono</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="email" class="form-control" id="floatingCorreo" th:field="*{persona.correo}" placeholder="Correo">
+                <label for="floatingCorreo">Correo</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingNombre" th:field="*{persona.nombre}" placeholder="Nombre">
+                <label for="floatingNombre">Nombre</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingPrimerApellido" th:field="*{persona.primer_apellido}" placeholder="Primer Apellido">
+                <label for="floatingPrimerApellido">Primer Apellido</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingSegundoApellido" th:field="*{persona.segundo_apellido}" placeholder="Segundo Apellido">
+                <label for="floatingSegundoApellido">Segundo Apellido</label>
+            </div>
+
+            <!-- Botón Guardar -->
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>
