@@ -68,7 +68,6 @@ public class EmpleadoController {
         return "redirect:/";
     }
     
-    //Utilizado para eliminar Habitacion
     @GetMapping("/eliminar/{id_empleado}")
     public String habitacionEliminar(@PathVariable("id_empleado") Long id_empleado) {
         _EmpleadoService.eliminarEmpleado(id_empleado);
