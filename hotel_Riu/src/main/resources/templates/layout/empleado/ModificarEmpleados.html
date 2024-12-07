@@ -16,6 +16,8 @@
 
             <input type="hidden" class="form-control" id="floatingIdEmpleado" th:field="*{id_empleado}">
 
+            <input type="hidden" class="form-control" id="floatingIdHotel" th:field="*{id_hotel}">
+
             <div class="mb-3 form-floating">
                 <input type="text" class="form-control" id="floatingTipoDocumento" th:field="*{persona.tipo_documento}" placeholder="Tipo de Documento" required>
                 <label for="floatingTipoDocumento">Tipo de Documento</label>
@@ -44,10 +46,11 @@
                 <input type="text" class="form-control" id="floatingSegundoApellido" th:field="*{persona.segundo_apellido}" placeholder="Segundo Apellido" required>
                 <label for="floatingSegundoApellido">Segundo Apellido</label>
             </div>
-
-            <!-- Campos para Empleado -->
             <div class="mb-3 form-floating">
-                <input type="text" class="form-control" id="floatingEstado" th:field="*{estado}" placeholder="Estado" required>
+                <select class="form-control" id="floatingEstado" th:field="*{estado}" required>
+                    <option value="Activo" th:selected="${empleado.estado == 'Activo'}">Activo</option>
+                    <option value="Inactivo" th:selected="${empleado.estado == 'Inactivo'}">Inactivo</option>
+                </select>
                 <label for="floatingEstado">Estado</label>
             </div>
             <div class="mb-3 form-floating">
