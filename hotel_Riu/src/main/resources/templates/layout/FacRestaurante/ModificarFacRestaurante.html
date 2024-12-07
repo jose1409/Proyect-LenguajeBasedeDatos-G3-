@@ -1,0 +1,46 @@
+<div th:fragment="ModificarFactura">
+    <div class="container-fluid">
+        <div class="row p-4 mb-5" style="background-color: white">
+            <div class="d-flex align-items-center" style="gap: 12px;">
+                <p class="mb-0 h1">Modificar Factura Restaurante</p>
+                <p class="mb-0 mt-2 h4">Gestión Hotelera</p>
+                <button onclick="loadComponent('/facturaRestaurante/inicio')" class="btn btn-primary">Volver</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <form class="form-floating" th:action="@{/facturaRestaurante/actualizar}" th:object="${facturaRestaurante}" method="post">
+
+            <!-- Campo oculto para el ID -->
+            <input type="hidden" class="form-control" id="floatingIdFactura" th:field="*{idFactura}">
+
+            <!-- Campo para el número de factura -->
+            <div class="mb-3 form-floating">
+                <input type="number" class="form-control" id="floatingNumeroFactura" th:field="*{numeroFactura}" placeholder="Número de Factura" required>
+                <label for="floatingNumeroFactura">Número de Factura</label>
+            </div>
+
+            <!-- Campo para el monto total -->
+            <div class="mb-3 form-floating">
+                <input type="number" class="form-control" id="floatingMontoTotal" th:field="*{montoTotal}" placeholder="Monto Total" required>
+                <label for="floatingMontoTotal">Monto Total</label>
+            </div>
+
+            <!-- Campo para la fecha -->
+            <div class="mb-3 form-floating">
+                <input type="date" class="form-control" id="floatingFecha" th:field="*{fecha}" placeholder="Fecha" required>
+                <label for="floatingFecha">Fecha</label>
+            </div>
+
+            <!-- Campo para el nombre del cliente -->
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingNombreCliente" th:field="*{nombreCliente}" placeholder="Nombre del Cliente" required>
+                <label for="floatingNombreCliente">Nombre del Cliente</label>
+            </div>
+
+            <!-- Botón de guardar -->
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>
