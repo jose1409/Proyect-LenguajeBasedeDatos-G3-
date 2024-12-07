@@ -1,0 +1,52 @@
+<div th:fragment="ModificarReservacionRestaurante">
+    <div class="container-fluid">
+        <div class="row p-4 mb-5" style="background-color: white;">
+            <div class="d-flex align-items-center" style="gap: 12px;">
+                <p class="mb-0 h1">Modificar Reservación Restaurante</p>
+                <p class="mb-0 mt-2 h4">Gestión Hotelera</p>
+                <button onclick="loadComponent('/reservacion/inicio')" class="btn btn-primary">Volver</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <form class="form-floating" th:action="@{/reservacion/actualizar}" th:object="${reservacion}" method="post">
+
+            <!-- Campo oculto para el ID -->
+            <input type="hidden" class="form-control" id="floatingIdReservacion" th:field="*{idReservacion}">
+
+            <!-- Campo para el nombre del cliente -->
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingNombreCliente" th:field="*{nombreCliente}" placeholder="Nombre del Cliente" required>
+                <label for="floatingNombreCliente">Nombre del Cliente</label>
+            </div>
+
+            <!-- Campo para la fecha -->
+            <div class="mb-3 form-floating">
+                <input type="date" class="form-control" id="floatingFecha" th:field="*{fecha}" required>
+                <label for="floatingFecha">Fecha</label>
+            </div>
+
+            <!-- Campo para la hora -->
+            <div class="mb-3 form-floating">
+                <input type="time" class="form-control" id="floatingHora" th:field="*{hora}" required>
+                <label for="floatingHora">Hora</label>
+            </div>
+
+            <!-- Campo para el número de personas -->
+            <div class="mb-3 form-floating">
+                <input type="number" class="form-control" id="floatingNumeroPersonas" th:field="*{numeroPersonas}" placeholder="Número de Personas" required>
+                <label for="floatingNumeroPersonas">Número de Personas</label>
+            </div>
+
+            <!-- Campo para las observaciones -->
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingObservaciones" th:field="*{observaciones}" placeholder="Observaciones" required>
+                <label for="floatingObservaciones">Observaciones</label>
+            </div>
+
+            <!-- Botón de guardar -->
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>
