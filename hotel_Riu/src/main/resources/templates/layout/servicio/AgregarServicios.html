@@ -1,0 +1,22 @@
+<div th:fragment="AgregarServicios">
+    <div class="container-fluid">
+        <div class="row p-4 mb-5" style="background-color: white">
+            <div class="d-flex align-items-center" style="gap: 12px;">
+                <p class="mb-0 h1">Servicio</p>
+                <p class="mb-0 mt-2 h4">Gestion Hotelera</p>
+                <button onclick="loadComponent('/servicio/inicio')" class="btn btn-primary">Volver</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+
+        <form class="form-floating" th:action="@{/servicio/guardar}" th:object="${servicio}" method="post">
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingnombre" th:field="*{nombre}" placeholder="nombre">
+                <label for="floatingnombre">Nombre</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>

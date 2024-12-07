@@ -1,11 +1,10 @@
-<div th:fragment="ListaHabitacion">
+<div th:fragment="ListaAsignarServicios">
 
     <div class="container-fluid">
         <div class="row p-4 mb-5" style="background-color: white">
             <div class="d-flex align-items-center" style="gap: 12px;">
-                <p class="mb-0 h1">Habitaciones</p>
+                <p class="mb-0 h1">Asignacion de Servicios a Habitaciones</p>
                 <p class="mb-0 mt-2 h4">Gestion Hotelera</p>
-                <button onclick="loadComponent('/habitacion/crear')" class="btn btn-primary">Agregar</button>
             </div>
         </div>
     </div>
@@ -42,10 +41,6 @@
                 <thead class="bg-light">
                     <tr>
                         <th># Habitacion</th>
-                        <th>Precio</th>
-                        <th>Descripcion</th>
-                        <th>Estado de Limpieza</th>
-                        <th>Capacidad</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -65,37 +60,12 @@
                             </div>
                         </td>
                         <td>
-                            <p class="fw-normal mb-1" th:text="${'₡' + habitacion.precio}"/>
-                        </td>
-                        <td>
-                            <p class="fw-normal mb-1" th:text="${habitacion.descripcion}">
-                        </td>
-                        <td>
-                            <p class="fw-normal mb-1" th:text="${habitacion.estadoLimpieza}">
-                        </td>
-                        <td th:text="${habitacion.capacidad}"></td>
-                        <td>
                             <button
-                                th:onclick="'loadComponent(\'/habitacion/modificar/' + ${habitacion.idHabitacion} + '\', \'GET\')'"
-                                type="button"
-                                class="btn btn-link btn-rounded btn-sm fw-bold"
+                                th:onclick="'loadComponent(\'/servicio/asignar/' + ${habitacion.idHabitacion} + '\', \'GET\')'"
+                                class="btn btn-outline-dark border btn-rounded btn-sm fw-bold"
                                 data-mdb-ripple-color="dark"
                                 >
-                                Editar
-                            </button>
-                            <button
-                                th:onclick="'loadComponent(\'/habitacion/eliminar/' + ${habitacion.idHabitacion} + '\', \'GET\')'"
-                                class="btn btn-danger btn-rounded btn-sm fw-bold"
-                                data-mdb-ripple-color="dark"
-                                >
-                                Eliminar
-                            </button>
-                            <button
-                                th:onclick="'loadComponent(\'/habitacion/servicios/' + ${habitacion.idHabitacion} + '\', \'GET\')'"
-                                class="btn btn-success btn-rounded btn-sm fw-bold"
-                                data-mdb-ripple-color="dark"
-                                >
-                                Ver Servicios
+                                Editar Servicios a la Habitacion
                             </button>
                         </td>
                     </tr>
