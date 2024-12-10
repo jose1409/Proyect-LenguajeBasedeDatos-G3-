@@ -1,0 +1,103 @@
+<div th:fragment="AgregarReservacionHabitacion">
+    <div class="container-fluid">
+        <div class="row p-4 mb-5" style="background-color: white;">
+            <div class="d-flex align-items-center" style="gap: 12px;">
+                <p class="mb-0 h1">Reservación de Habitación</p>
+                <p class="mb-0 mt-2 h4">Gestión Hotelera</p>
+                <button onclick="loadComponent('/reservacionHabitacion/inicio')" class="btn btn-primary">Volver</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <form class="form-floating" th:action="@{/reservacionHabitacion/guardar}" th:object="${reservacionHabitacion}" method="post">
+            <!-- Seleccionar Cliente -->
+            <div class="mb-3 form-floating">
+                <select class="form-select" id="floatingCliente" th:field="*{cliente.id_cliente}">
+                    <option value="" disabled selected>Selecciona un Cliente</option>
+                    <option th:each="cliente : ${clientes}" 
+                            th:value="${cliente.id_cliente}" 
+                            th:text="${cliente.persona.nombre} + ' ' + ${cliente.persona.primer_apellido} + ' ' + ${cliente.persona.segundo_apellido}">Cliente</option>
+                </select>
+                <label for="floatingCliente">Cliente</label>
+            </div>
+
+            <!-- Seleccionar Habitación -->
+            <div class="mb-3 form-floating">
+                <select class="form-select" id="floatingHabitacion" th:field="*{habitacion.idHabitacion}" onchange="calcularPrecio()">
+                    <option value="" disabled selected>Selecciona una Habitación</option>
+                    <option th:each="habitacion : ${Habitaciones}" 
+                            th:value="${habitacion.idHabitacion}" 
+                            th:data-precio="${habitacion.precio}" 
+                            th:text="'Habitacion N°' + ${habitacion.numeroHabitacion} + ' - ' + ${'₡' + habitacion.precio}">Habitación</option>
+                </select>
+                <label for="floatingHabitacion">Habitación - Precio x noche</label>
+            </div>
+
+
+            <!--Seleccionar Horario--> 
+<!--                        <div class="mb-3 form-floating">
+                            <select class="form-select" id="floatingHorario" th:field="*{horario.id_horario}">
+                                <option value="" disabled selected>Selecciona un Horario</option>
+                                <option th:each="horario : ${horarios}" 
+                                        th:text="${horario.horaApertura} + ' - ' + ${horario.horaCierre}">
+                                    Horario
+                                </option>
+                            </select>
+                            <label for="floatingHorario">Horario</label>
+                        </div>-->
+
+
+            <!-- Método de Pago -->
+            <div class="mb-3 form-floating">
+                <select class="form-select" id="floatingMetodoPago" th:field="*{metodoPago}">
+                    <option value="" disabled selected>Selecciona un Método de Pago</option>
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Tarjeta">Tarjeta</option>
+                    <option value="Sinpe Movil">Sinpe Móvil</option>
+                </select>
+                <label for="floatingMetodoPago">Método de Pago</label>
+            </div>
+
+            <!-- Descuento -->
+            <div class="mb-3 form-floating">
+                <input type="number" class="form-control" id="floatingDescuento" th:field="*{descuento}" placeholder="Descuento (%)"
+                       th:value="descuento" onchange="calcularPrecio()">
+                <label for="floatingDescuento">Descuento (%)</label>
+            </div>
+
+            <!-- Fecha de Entrada -->
+            <div class="mb-3 form-floating">
+                <input type="date" class="form-control" id="floatingFechaEntrada" th:field="*{fechaEntrada}" placeholder="Fecha de Entrada"
+                       th:value="fechaEntrada">
+                <label for="floatingFechaEntrada">Fecha de Entrada</label>
+            </div>
+
+            <!-- Fecha de Salida -->
+            <div class="mb-3 form-floating">
+                <input type="date" class="form-control" id="floatingFechaSalida" th:field="*{fechaSalida}" placeholder="Fecha de Salida"
+                       th:value="fechaSalida" onchange="calcularPrecio()">
+                <label for="floatingFechaSalida">Fecha de Salida</label>
+            </div>
+
+            <!-- Total a Pagar (bloqueado) -->
+            <div class="mb-3 form-floating d-flex align-items-center">
+                <input type="number" class="form-control" id="floatingTotalPagar" th:field="*{totalPagar}" placeholder="Total a Pagar" onchange="calcularPrecio()" readonly>
+                <label for="floatingTotalPagar">Total a Pagar</label>
+                <!--Botón para calcular precio--> 
+                <button 
+                    type="button"
+                    class="btn btn-success btn-rounded btn-sm fw-bold ms-3"
+                    data-mdb-ripple-color="dark"
+                    onclick="calcularPrecio()"
+                    >
+                    Calcular Precio
+                </button>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+
+    <script th:src="@{/js/CalcularPrecio.js}"></script>
+</div>

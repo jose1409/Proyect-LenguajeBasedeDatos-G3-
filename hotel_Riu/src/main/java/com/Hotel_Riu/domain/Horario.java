@@ -19,23 +19,23 @@ public class Horario implements Serializable {
     @Column(name = "ID_HORARIO")
     private Long idHorario;
 
-    @Column(name = "FECHA_HORARIO", nullable = false)
-    private Date fechaHorario;
+    @Column(name = "FECHA_HORARIO")
+    private java.sql.Date fechaHorario;
 
-    @Column(name = "HORA_APERTURA", nullable = false)
-    private java.time.LocalTime horaApertura;
+    @Column(name = "HORA_APERTURA_TEMP")
+    private String horaApertura;
 
-    @Column(name = "HORA_CIERRE", nullable = false)
-    private java.time.LocalTime horaCierre;
+    @Column(name = "HORA_CIERRE_TEMP")
+    private String horaCierre;
 
-    public Horario(Long idHorario, Date fechaHorario, LocalTime horaApertura, LocalTime horaCierre) {
+    public Horario() {
+    }
+
+    public Horario(Long idHorario, java.sql.Date fechaHorario, String horaApertura, String horaCierre) {
         this.idHorario = idHorario;
         this.fechaHorario = fechaHorario;
         this.horaApertura = horaApertura;
         this.horaCierre = horaCierre;
-    }
-
-    public Horario() {
     }
 
     public Long getIdHorario() {
@@ -46,29 +46,33 @@ public class Horario implements Serializable {
         this.idHorario = idHorario;
     }
 
-    public Date getFechaHorario() {
+    public java.sql.Date getFechaHorario() {
         return fechaHorario;
     }
 
-    public void setFechaHorario(Date fechaHorario) {
+    public void setFechaHorario(java.sql.Date fechaHorario) {
         this.fechaHorario = fechaHorario;
     }
 
-    public LocalTime getHoraApertura() {
+    public String getHoraApertura() {
         return horaApertura;
     }
 
-    public void setHoraApertura(LocalTime horaApertura) {
+    public void setHoraApertura(String horaApertura) {
         this.horaApertura = horaApertura;
     }
 
-    public LocalTime getHoraCierre() {
+    public String getHoraCierre() {
         return horaCierre;
     }
 
-    public void setHoraCierre(LocalTime horaCierre) {
+    public void setHoraCierre(String horaCierre) {
         this.horaCierre = horaCierre;
     }
+    
+    
+    
+    
     
     
     
