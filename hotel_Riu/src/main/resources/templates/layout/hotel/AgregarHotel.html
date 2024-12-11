@@ -1,0 +1,42 @@
+<div th:fragment="AgregarHotel">
+    <div class="container-fluid">
+        <div class="row p-4 mb-5" style="background-color: white">
+            <div class="d-flex align-items-center" style="gap: 12px;">
+                <p class="mb-0 h1">Hotel</p>
+                <p class="mb-0 mt-2 h4">Gestion Hotelera</p>
+                <button onclick="loadComponent('/hotel/inicio')" class="btn btn-primary">Volver</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+
+        <form class="form-floating" th:action="@{/hotel/guardar}" th:object="${hotel}" method="post">
+                       
+           
+            <div class="mb-3 form-floating">
+                <input type="number" class="form-control" id="floatingDireccion" th:field="*{direccion}" placeholder="Id de Direccion">
+                <label for="floatingDireccion">Id de Dirección</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="number" class="form-control" id="floatingHorario" th:field="*{horario}" placeholder="Id de Horario">
+                <label for="floatingHorario">Id de Horario</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingNombre" th:field="*{nombre}" placeholder="Nombre del Hotel">
+                <label for="floatingNombre">Nombre</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingTelefono" th:field="*{telefono}" placeholder="Telefono">
+                <label for="floatingTelefono">Teléfono</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingCorreo" th:field="*{correo}" placeholder="Correo">
+                <label for="floatingCorreo">Correo</label>
+            </div>
+
+            
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>

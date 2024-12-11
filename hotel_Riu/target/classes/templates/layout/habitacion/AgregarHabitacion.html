@@ -1,0 +1,56 @@
+<div th:fragment="AgregarHabitacion">
+    <div class="container-fluid">
+        <div class="row p-4 mb-5" style="background-color: white">
+            <div class="d-flex align-items-center" style="gap: 12px;">
+                <p class="mb-0 h1">Habitacion</p>
+                <p class="mb-0 mt-2 h4">Gestion Hotelera</p>
+                <button onclick="loadComponent('/habitacion/inicio')" class="btn btn-primary">Volver</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+
+        <form class="form-floating" th:action="@{/habitacion/guardar}" th:object="${habitacion}" method="post">
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingNumeroHabitacion" th:field="*{numeroHabitacion}" placeholder="Número de Habitación">
+                <label for="floatingNumeroHabitacion">Número de Habitación</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="number" class="form-control" id="floatingPrecio" th:field="*{precio}" placeholder="Precio">
+                <label for="floatingPrecio">Precio</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <textarea class="form-control" id="floatingDescripcion" th:field="*{descripcion}" placeholder="Descripción"></textarea>
+                <label for="floatingDescripcion">Descripción</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="number" class="form-control" id="floatingMaximaCapacidad" th:field="*{capacidad}" placeholder="Capacidad Máxima">
+                <label for="floatingMaximaCapacidad">Capacidad Máxima</label>
+            </div>
+            
+<!--            <input type="hidden" th:field="*{idHabitacion}"/>
+
+            <div class="mb-3 form-floating">
+                <select class="form-select" id="floatingIdHotel" th:field="*{hotel.idHotel}">
+                    <option value="" disabled selected>Selecciona un Hotel</option>
+                    <option th:each="hotel : ${hoteles}" 
+                            th:value="${hotel.idHotel}" 
+                            th:text="${hotel.nombre}">Hotel</option>
+                </select>
+                <label for="floatingIdHotel">Hotel</label>
+            </div>-->
+
+             <div class="mb-3 form-floating">
+                <select class="form-select" id="floatingLimpiar" th:field="*{estadoLimpieza}">
+                    <option value="" disabled selected>Selecciona una opcion</option>
+                    <option th:value="Limpio" th:text="Limpio"></option>
+                    <option th:value="Sucio" th:text="Sucio"></option>
+                </select>
+                <label for="floatingLimpiar">Estado de Habitacion</label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>

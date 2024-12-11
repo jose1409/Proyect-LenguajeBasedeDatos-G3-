@@ -1,0 +1,91 @@
+<header th:fragment="SideBar" class="header">
+
+    <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+        <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <span class="fs-5 d-none d-sm-inline">Menu</span>
+        </a>
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+            <li class="nav-item">
+                <a href="javascript:void(0);" onclick="loadComponent('/hotel/inicio')" class="nav-link align-middle px-0">
+                    <i class="fs-4 bi bi-building-fill"></i> <span class="ms-1 d-none d-sm-inline">Hotel</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0);" onclick="loadComponent(#)" class="nav-link px-0 align-middle">
+                    <i class="fs-4 bi bi-cup-hot-fill"></i> <span class="ms-1 d-none d-sm-inline">Restaurantes</span> </a>
+            </li>
+            <li class="nav-item">
+                <a href="javascript:void(0);" onclick="loadComponent('/habitacion/inicio')" class="nav-link align-middle px-0">
+                    <i class="fs-4 bi bi-door-open-fill"></i> <span class="ms-1 d-none d-sm-inline">Habitaciones</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0);" onclick="loadComponent('/cliente/inicio')" class="nav-link align-middle px-0">
+                    <i class="fs-4 bi bi-person-circle"></i> <span class="ms-1 d-none d-sm-inline">Clientes</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0);" onclick="loadComponent('/empleado/inicio')" class="nav-link align-middle px-0">
+                    <i class="fs-4 bi bi-person-fill-gear"></i> <span class="ms-1 d-none d-sm-inline">Empleados</span>
+                </a>
+            </li>
+            <li>
+                <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                    <i class="fs-4 bi bi-calendar-check-fill"></i> <span class="ms-1 d-none d-sm-inline">Reservaciones de Hoteles</span></a>
+                <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                    <li class="w-100">
+                        <a href="javascript:void(0);" onclick="loadComponent(#)" class="nav-link px-0 bi bi-person-fill-check"> 
+                            <span class="d-none d-sm-inline">Check In</span></a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link px-0 bi bi-person-fill-dash"> <span class="d-none d-sm-inline">Check Out</span></a>
+                    </li>
+                    <li class="w-100">
+                        <a href="javascript:void(0);" onclick="loadComponent(#)" class="nav-link px-0 bi bi-hand-index-fill"> 
+                            <span class="d-none d-sm-inline">Reservacion Restaurantes</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0);" onclick="loadComponent(#)" class="nav-link align-middle px-0">
+                    <i class="fs-4 bi bi-pie-chart-fill"></i> <span class="ms-1 d-none d-sm-inline">Facturas de Restaurantes</span>
+                </a>
+            </li>
+            <li>
+                <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                    <i class="fs-4 bi bi-gear-fill"></i> <span class="ms-1 d-none d-sm-inline">Configuraciones</span></a>
+                <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                    <li class="w-100">
+                        <a href="javascript:void(0);" onclick="loadComponent('/servicio/AsignarServicios')" class="nav-link px-0 bi bi-key-fill"> 
+                            <span class="d-none d-sm-inline">Asignar Servicios</span></a>
+                    </li>
+                    <li class="w-100">
+                        <a href="javascript:void(0);" onclick="loadComponent('/servicio/inicio')" class="nav-link px-0 bi bi-key-fill"> 
+                            <span class="d-none d-sm-inline">Servicios</span></a>
+                    </li>
+                    <li class="w-100">
+                        <a href="javascript:void(0);" onclick="loadComponent(#)" class="nav-link px-0 bi bi-cart-fill"> 
+                            <span class="d-none d-sm-inline">Platillos</span></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <hr>
+        <img src="../../img/jose.jpg" alt=""/>
+        <div class="dropdown pb-4">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://scontent.fsjo14-1.fna.fbcdn.net/v/t1.6435-9/130537629_1034474253715554_4413910458708309561_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=1d70fc&_nc_ohc=Sc-0yx1ireYQ7kNvgFM_Gtf&_nc_ht=scontent.fsjo14-1.fna&oh=00_AYD-hZJCoHegaI0vgl07BbXXpAq47k40HP7eCWkaAeIGbQ&oe=66E23AE4" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                <span class="d-none d-sm-inline mx-1">Jose A</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item" href="#">Trabajando</a></li>
+                <li><a class="dropdown-item" href="#">Configuraciones</a></li>
+                <li><a class="dropdown-item" href="#">Perfil</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Sign out</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
