@@ -13,7 +13,17 @@
 
         <form class="form-floating" th:action="@{/hotel/guardar}" th:object="${hotel}" method="post">
                        
-           
+            <input type="hidden" th:field="*{direccion}"/>
+            <div class="mb-3 form-floating">
+                <select class="form-select" id="floatingIdHotel" th:field="*{hotel.idHotel}">
+                    <option value="" disabled selected>Selecciona una direccion</option>
+                    <option th:each="direccion : ${direcciones}" 
+                            th:value="${direccion.idDireccion}" 
+                            th:text="${direccion.direccion_detallada}">Direccion</option>
+                </select>
+                <label for="floatingIdHotel">Direccion</label>
+            </div>
+            
             <div class="mb-3 form-floating">
                 <input type="number" class="form-control" id="floatingDireccion" th:field="*{direccion}" placeholder="Id de Direccion">
                 <label for="floatingDireccion">Id de Dirección</label>
