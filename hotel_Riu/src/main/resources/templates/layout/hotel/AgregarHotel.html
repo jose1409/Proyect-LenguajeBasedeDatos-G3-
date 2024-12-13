@@ -1,0 +1,54 @@
+<div th:fragment="AgregarHotel">
+    <div class="container-fluid">
+        <div class="row p-4 mb-5" style="background-color: white">
+            <div class="d-flex align-items-center" style="gap: 12px;">
+                <p class="mb-0 h1">Hotel</p>
+                <p class="mb-0 mt-2 h4">Gestion Hotelera</p>
+                <button onclick="loadComponent('/hotel/inicio')" class="btn btn-primary">Volver</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+
+        <form class="form-floating" th:action="@{/hotel/guardar}" th:object="${hotel}" method="post">
+<!--   
+            <input type="hidden" th:field="*{direccion}"/>
+            <div class="mb-3 form-floating">
+                <select class="form-select" id="floatingIdHotel" th:field="*{direccion.id_direccionl}">
+                    <option value="" disabled selected>Selecciona una direccion</option>
+                    <option th:each="direccion : ${direcciones}" 
+                            th:value="${direccion.id_direccion}" 
+                            th:text="${direccion.direccion_detallada}">Direccion</option>
+                </select>
+                <label for="floatingIdHotel">Direccion</label>
+            </div>
+            -->
+           
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingNombre" th:field="*{nombre}" placeholder="Nombre del Hotel">
+                <label for="floatingNombre">Nombre</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingTelefono" th:field="*{telefono}" placeholder="Telefono">
+                <label for="floatingTelefono">Teléfono</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingCorreo" th:field="*{correo}" placeholder="Correo">
+                <label for="floatingCorreo">Correo</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="number" class="form-control" id="floatingIdDireccion" th:field="*{direccion.idDireccion}" placeholder="Id de Direccion">
+                <label for="floatingIdDireccion">ID de la Dirección</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="number" class="form-control" id="floatingIdHorario" th:field="*{horario.idHorario}" placeholder="Id del Horario">
+                <label for="floatingIdHorario">ID del Horario</label>
+            </div>
+            
+            <form action="ListaHotel.html" method="get">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>            
+        </form>
+    </div>
+</div>
