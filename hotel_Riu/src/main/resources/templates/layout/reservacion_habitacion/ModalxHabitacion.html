@@ -1,0 +1,66 @@
+<div th:fragment="DetallesReservacion">
+    <!-- Modal para los detalles de la reservación -->
+    <div class="modal fade" id="modalDetallesReservacion" tabindex="-1" aria-labelledby="modalDetallesReservacionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDetallesReservacionLabel">Detalles de la Reservación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <!-- Información de la reservación -->
+                            <div class="col-12">
+                                <p><strong>Método de Pago:</strong> <span th:text="${reservacion.metodoPago}"></span></p>
+                                <p><strong>Descuento:</strong> <span th:text="${reservacion.descuento + '%'}"></span></p>
+                                <p><strong>Total a Pagar:</strong> <span th:text="${'₡' + reservacion.totalPagar}"></span></p>
+                                <p><strong>Fecha de Entrada:</strong> <span th:text="${reservacion.fechaEntrada}"></span></p>
+                                <p><strong>Fecha de Salida:</strong> <span th:text="${reservacion.fechaSalida}"></span></p>
+                            </div>
+
+                            <!-- Información de la habitación -->
+                            <div class="col-12 mt-3">
+                                <h6><strong>Detalles de la Habitación</strong></h6>
+                                <p><strong>Número de Habitación:</strong> <span th:text="${reservacion.habitacion.numeroHabitacion}"></span></p>
+                                <p><strong>Precio x noche:</strong> <span th:text="${reservacion.habitacion.precio}"></span></p>
+                                <p><strong>Capacidad:</strong> <span th:text="${reservacion.habitacion.capacidad}"></span></p>
+                                <p><strong>Descripción:</strong> <span th:text="${reservacion.habitacion.descripcion}"></span></p>
+                            </div>
+
+                            <!-- Información del cliente -->
+                            <div class="col-12 mt-3">
+                                <h6><strong>Detalles del Cliente</strong></h6>
+                                <p><strong>Nombre Completo:</strong> <span th:text="${reservacion.cliente.persona.nombre + ' ' + reservacion.cliente.persona.primer_apellido + ' ' + reservacion.cliente.persona.segundo_apellido}"></span></p>
+                                <p><strong>Cédula:</strong> <span th:text="${reservacion.cliente.persona.cedula}"></span></p>
+                                <p><strong>Correo:</strong> <span th:text="${reservacion.cliente.persona.correo}"></span></p>
+                                <p><strong>Correo:</strong> <span th:text="${reservacion.cliente.persona.telefono}"></span></p>
+                            </div>
+                            <!-- Información del horario -->
+                            <div class="col-12 mt-3">
+                                <h6><strong>Detalles del Horario</strong></h6>
+                                <p><strong>Hora de Entrada:</strong> <span th:text="${reservacion.horario.horaApertura}"></span></p>
+                                <p><strong>Hora de Salida</strong> <span th:text="${reservacion.horario.horaCierre}"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="loadComponent('/reservacionHabitacion/inicio')" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script para abrir automáticamente el modal cuando se carga el fragmento -->
+    <script th:inline="javascript">
+        var myModal = new bootstrap.Modal(document.getElementById('modalDetallesReservacion'));
+        myModal.show();
+    </script>
+</div>
+
+
+
+
+
+

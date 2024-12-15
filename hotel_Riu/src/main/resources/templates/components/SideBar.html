@@ -6,7 +6,7 @@
         </a>
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
             <li class="nav-item">
-                <a href="javascript:void(0);" onclick="loadComponent(#)" class="nav-link align-middle px-0">
+                <a href="javascript:void(0);" onclick="loadComponent('/hotel/inicio')" class="nav-link align-middle px-0">
                     <i class="fs-4 bi bi-building-fill"></i> <span class="ms-1 d-none d-sm-inline">Hotel</span>
                 </a>
             </li>
@@ -31,14 +31,11 @@
             </li>
             <li>
                 <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                    <i class="fs-4 bi bi-calendar-check-fill"></i> <span class="ms-1 d-none d-sm-inline">Reservaciones de Hoteles</span></a>
+                    <i class="fs-4 bi bi-calendar-check-fill"></i> <span class="ms-1 d-none d-sm-inline">Reservaciones de Habitaciones</span></a>
                 <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                     <li class="w-100">
-                        <a href="javascript:void(0);" onclick="loadComponent(#)" class="nav-link px-0 bi bi-person-fill-check"> 
+                        <a href="javascript:void(0);" onclick="loadComponent('/reservacionHabitacion/inicio')" class="nav-link px-0 bi bi-person-fill-check"> 
                             <span class="d-none d-sm-inline">Check In</span></a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link px-0 bi bi-person-fill-dash"> <span class="d-none d-sm-inline">Check Out</span></a>
                     </li>
                     <li class="w-100">
                         <a href="javascript:void(0);" onclick="loadComponent(#)" class="nav-link px-0 bi bi-hand-index-fill"> 
@@ -56,7 +53,11 @@
                     <i class="fs-4 bi bi-gear-fill"></i> <span class="ms-1 d-none d-sm-inline">Configuraciones</span></a>
                 <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
                     <li class="w-100">
-                        <a href="javascript:void(0);" onclick="loadComponent(#)" class="nav-link px-0 bi bi-key-fill"> 
+                        <a href="javascript:void(0);" onclick="loadComponent('/servicio/AsignarServicios')" class="nav-link px-0 bi bi-key-fill"> 
+                            <span class="d-none d-sm-inline">Asignar Servicios</span></a>
+                    </li>
+                    <li class="w-100">
+                        <a href="javascript:void(0);" onclick="loadComponent('/servicio/inicio')" class="nav-link px-0 bi bi-key-fill"> 
                             <span class="d-none d-sm-inline">Servicios</span></a>
                     </li>
                     <li class="w-100">

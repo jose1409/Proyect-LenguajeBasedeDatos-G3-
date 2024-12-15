@@ -1,11 +1,11 @@
-<div th:fragment="ListaHabitacion">
+<div th:fragment="ListaServicios">
 
     <div class="container-fluid">
         <div class="row p-4 mb-5" style="background-color: white">
             <div class="d-flex align-items-center" style="gap: 12px;">
-                <p class="mb-0 h1">Habitaciones</p>
+                <p class="mb-0 h1">Servicios</p>
                 <p class="mb-0 mt-2 h4">Gestion Hotelera</p>
-                <button onclick="loadComponent('/habitacion/crear')" class="btn btn-primary">Agregar</button>
+                <button onclick="loadComponent('/servicio/crear')" class="btn btn-primary">Agregar</button>
             </div>
         </div>
     </div>
@@ -35,22 +35,17 @@
                 </div>
             </div>
         </div>
-
-
         <div class="row">
             <table class="table align-middle mb-0 bg-white">
                 <thead class="bg-light">
                     <tr>
-                        <th># Habitacion</th>
-                        <th>Precio</th>
-                        <th>Descripcion</th>
-                        <th>Estado de Limpieza</th>
-                        <th>Capacidad</th>
-                        <th>Actions</th>
+                        <th>N°Servicio</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="habitacion : ${Habitaciones}">
+                    <tr th:each="servicio : ${Servicios}">
                         <td>
                             <div class="d-flex align-items-center">
                                 <img
@@ -60,23 +55,16 @@
                                     style="width: 45px; height: 45px"
                                     />
                                 <div class="ms-3">
-                                    <p class="fw-bold mb-1" th:text="${habitacion.numeroHabitacion}"/>
+                                    <p class="fw-bold mb-1" th:text="${servicio.idServicio}"/>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <p class="fw-normal mb-1" th:text="${'₡' + habitacion.precio}"/>
+                            <p class="fw-bold mb-1" th:text="${servicio.nombre}"/>
                         </td>
-                        <td>
-                            <p class="fw-normal mb-1" th:text="${habitacion.descripcion}">
-                        </td>
-                        <td>
-                            <p class="fw-normal mb-1" th:text="${habitacion.estadoLimpieza}">
-                        </td>
-                        <td th:text="${habitacion.capacidad}"></td>
                         <td>
                             <button
-                                th:onclick="'loadComponent(\'/habitacion/modificar/' + ${habitacion.idHabitacion} + '\', \'GET\')'"
+                                th:onclick="'loadComponent(\'/servicio/modificar/' + ${servicio.idServicio} + '\', \'GET\')'"
                                 type="button"
                                 class="btn btn-link btn-rounded btn-sm fw-bold"
                                 data-mdb-ripple-color="dark"
@@ -84,18 +72,11 @@
                                 Editar
                             </button>
                             <button
-                                th:onclick="'loadComponent(\'/habitacion/eliminar/' + ${habitacion.idHabitacion} + '\', \'GET\')'"
+                                th:onclick="'loadComponent(\'/servicio/eliminar/' + ${servicio.idServicio} + '\', \'GET\')'"
                                 class="btn btn-danger btn-rounded btn-sm fw-bold"
                                 data-mdb-ripple-color="dark"
                                 >
                                 Eliminar
-                            </button>
-                            <button
-                                th:onclick="'loadComponent(\'/habitacion/servicios/' + ${habitacion.idHabitacion} + '\', \'GET\')'"
-                                class="btn btn-success btn-rounded btn-sm fw-bold"
-                                data-mdb-ripple-color="dark"
-                                >
-                                Ver Servicios
                             </button>
                         </td>
                     </tr>

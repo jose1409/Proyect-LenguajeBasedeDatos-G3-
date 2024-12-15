@@ -1,11 +1,11 @@
-<div th:fragment="ListaHabitacion">
+<div th:fragment="ListaHotel">
 
     <div class="container-fluid">
         <div class="row p-4 mb-5" style="background-color: white">
             <div class="d-flex align-items-center" style="gap: 12px;">
-                <p class="mb-0 h1">Habitaciones</p>
+                <p class="mb-0 h1">Hoteles</p>
                 <p class="mb-0 mt-2 h4">Gestion Hotelera</p>
-                <button onclick="loadComponent('/habitacion/crear')" class="btn btn-primary">Agregar</button>
+                <button onclick="loadComponent('/hotel/crear')" class="btn btn-primary">Agregar</button>
             </div>
         </div>
     </div>
@@ -41,16 +41,15 @@
             <table class="table align-middle mb-0 bg-white">
                 <thead class="bg-light">
                     <tr>
-                        <th># Habitacion</th>
-                        <th>Precio</th>
-                        <th>Descripcion</th>
-                        <th>Estado de Limpieza</th>
-                        <th>Capacidad</th>
+                        <th> </th>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="habitacion : ${Habitaciones}">
+                    <tr th:each="hotel : ${Hoteles}">
                         <td>
                             <div class="d-flex align-items-center">
                                 <img
@@ -59,24 +58,19 @@
                                     alt=""
                                     style="width: 45px; height: 45px"
                                     />
-                                <div class="ms-3">
-                                    <p class="fw-bold mb-1" th:text="${habitacion.numeroHabitacion}"/>
-                                </div>
                             </div>
-                        </td>
-                        <td>
-                            <p class="fw-normal mb-1" th:text="${'₡' + habitacion.precio}"/>
-                        </td>
-                        <td>
-                            <p class="fw-normal mb-1" th:text="${habitacion.descripcion}">
-                        </td>
-                        <td>
-                            <p class="fw-normal mb-1" th:text="${habitacion.estadoLimpieza}">
-                        </td>
-                        <td th:text="${habitacion.capacidad}"></td>
+                            <td>
+                                <p class="fw-normal mb-1" th:text="${hotel.nombre}"></p>
+                            </td>
+                            <td>
+                                <p class="fw-normal mb-1" th:text="${hotel.telefono}"></p>
+                            </td>
+                            <td>
+                                <p class="fw-normal mb-1" th:text="${hotel.correo}"></p>
+                            </td>
                         <td>
                             <button
-                                th:onclick="'loadComponent(\'/habitacion/modificar/' + ${habitacion.idHabitacion} + '\', \'GET\')'"
+                                th:onclick="'loadComponent(\'/hotel/modificar/' + ${hotel.id_hotel} + '\', \'GET\')'"
                                 type="button"
                                 class="btn btn-link btn-rounded btn-sm fw-bold"
                                 data-mdb-ripple-color="dark"
@@ -84,18 +78,11 @@
                                 Editar
                             </button>
                             <button
-                                th:onclick="'loadComponent(\'/habitacion/eliminar/' + ${habitacion.idHabitacion} + '\', \'GET\')'"
+                                th:onclick="'loadComponent(\'/hotel/eliminar/' + ${hotel.id_hotel} + '\', \'GET\')'"
                                 class="btn btn-danger btn-rounded btn-sm fw-bold"
                                 data-mdb-ripple-color="dark"
                                 >
                                 Eliminar
-                            </button>
-                            <button
-                                th:onclick="'loadComponent(\'/habitacion/servicios/' + ${habitacion.idHabitacion} + '\', \'GET\')'"
-                                class="btn btn-success btn-rounded btn-sm fw-bold"
-                                data-mdb-ripple-color="dark"
-                                >
-                                Ver Servicios
                             </button>
                         </td>
                     </tr>

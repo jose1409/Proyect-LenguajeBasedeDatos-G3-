@@ -1,11 +1,11 @@
-<div th:fragment="ListaHabitacion">
+<div th:fragment="ListaReservacionHabitacion">
 
     <div class="container-fluid">
         <div class="row p-4 mb-5" style="background-color: white">
             <div class="d-flex align-items-center" style="gap: 12px;">
-                <p class="mb-0 h1">Habitaciones</p>
+                <p class="mb-0 h1">Reservaciones</p>
                 <p class="mb-0 mt-2 h4">Gestion Hotelera</p>
-                <button onclick="loadComponent('/habitacion/crear')" class="btn btn-primary">Agregar</button>
+                <button onclick="loadComponent('/reservacionHabitacion/crear')" class="btn btn-primary">Agregar</button>
             </div>
         </div>
     </div>
@@ -42,15 +42,18 @@
                 <thead class="bg-light">
                     <tr>
                         <th># Habitacion</th>
-                        <th>Precio</th>
-                        <th>Descripcion</th>
-                        <th>Estado de Limpieza</th>
-                        <th>Capacidad</th>
+                        <th>Cliente</th>
+                        <th>Método de Pago</th>
+                        <th>Descuento</th>
+                        <th>Total a Pagar</th>
+                        <th>Fecha Entrada</th>
+                        <th>Fecha Salida</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="habitacion : ${Habitaciones}">
+                    <!-- Iterar sobre las reservaciones -->
+                    <tr th:each="reservacion : ${Reservaciones}">
                         <td>
                             <div class="d-flex align-items-center">
                                 <img
@@ -60,23 +63,31 @@
                                     style="width: 45px; height: 45px"
                                     />
                                 <div class="ms-3">
-                                    <p class="fw-bold mb-1" th:text="${habitacion.numeroHabitacion}"/>
+                                    <p class="fw-bold mb-1" th:text="${reservacion.habitacion.numeroHabitacion}"></p>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <p class="fw-normal mb-1" th:text="${'₡' + habitacion.precio}"/>
+                            <p class="fw-normal mb-1" th:text="${reservacion.cliente.persona.nombre + ' ' + reservacion.cliente.persona.primer_apellido + ' ' + reservacion.cliente.persona.segundo_apellido}"></p>
                         </td>
                         <td>
-                            <p class="fw-normal mb-1" th:text="${habitacion.descripcion}">
+                            <p class="fw-normal mb-1" th:text="${reservacion.metodoPago}"></p>
                         </td>
                         <td>
-                            <p class="fw-normal mb-1" th:text="${habitacion.estadoLimpieza}">
+                            <p class="fw-normal mb-1" th:text="${reservacion.descuento + '%'}" ></p>
                         </td>
-                        <td th:text="${habitacion.capacidad}"></td>
+                        <td>
+                            <p class="fw-normal mb-1" th:text="${'₡' + reservacion.totalPagar}"></p>
+                        </td>
+                        <td>
+                            <p class="fw-normal mb-1" th:text="${#dates.format(reservacion.fechaEntrada, 'dd-MM-yyyy')}"></p>
+                        </td>
+                        <td>
+                            <p class="fw-normal mb-1" th:text="${#dates.format(reservacion.fechaSalida, 'dd-MM-yyyy')}"></p>
+                        </td>
                         <td>
                             <button
-                                th:onclick="'loadComponent(\'/habitacion/modificar/' + ${habitacion.idHabitacion} + '\', \'GET\')'"
+                                th:onclick="'loadComponent(\'/reservacionHabitacion/modificar/' + ${reservacion.idReservacionHabitacion} + '\', \'GET\')'"
                                 type="button"
                                 class="btn btn-link btn-rounded btn-sm fw-bold"
                                 data-mdb-ripple-color="dark"
@@ -84,18 +95,18 @@
                                 Editar
                             </button>
                             <button
-                                th:onclick="'loadComponent(\'/habitacion/eliminar/' + ${habitacion.idHabitacion} + '\', \'GET\')'"
+                                th:onclick="'loadComponent(\'/reservacionHabitacion/eliminar/' + ${reservacion.idReservacionHabitacion} + '\', \'GET\')'"
                                 class="btn btn-danger btn-rounded btn-sm fw-bold"
                                 data-mdb-ripple-color="dark"
                                 >
                                 Eliminar
                             </button>
                             <button
-                                th:onclick="'loadComponent(\'/habitacion/servicios/' + ${habitacion.idHabitacion} + '\', \'GET\')'"
+                                th:onclick="'loadComponent(\'/reservacionHabitacion/detalles/' + ${reservacion.idReservacionHabitacion} + '\', \'GET\')'"
                                 class="btn btn-success btn-rounded btn-sm fw-bold"
                                 data-mdb-ripple-color="dark"
                                 >
-                                Ver Servicios
+                                Ver Detalle
                             </button>
                         </td>
                     </tr>
