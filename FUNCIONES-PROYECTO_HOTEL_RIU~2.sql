@@ -38,7 +38,7 @@ DECLARE
     resultado VARCHAR2(20);
 BEGIN
     resultado := verificar_disponibilidad(10, TO_DATE('2024-12-25', 'YYYY-MM-DD'));
-    dbms_output.put_line('La habitación 10 está ' || resultado);
+    dbms_output.put_line('La habitaciÃ³n 10 estÃ¡ ' || resultado);
 END;
 /
 
@@ -68,7 +68,7 @@ BEGIN
     IF c_metodos_pago%found THEN
         v_metodo_pago_mas_usado := v_metodo_pago;
     ELSE
-        v_metodo_pago_mas_usado := 'No hay métodos de pago registrados';
+        v_metodo_pago_mas_usado := 'No hay mÃ©todos de pago registrados';
     END IF;
 
     CLOSE c_metodos_pago;
@@ -82,7 +82,7 @@ DECLARE
     v_metodo_usado VARCHAR2(100);
 BEGIN
     v_metodo_usado := metodo_pago_mas_utilizado;
-    dbms_output.put_line('El método de pago más utilizado es: ' || v_metodo_usado);
+    dbms_output.put_line('El mÃ©todo de pago mÃ¡s utilizado es: ' || v_metodo_usado);
 END;
 /
 
@@ -205,7 +205,7 @@ DECLARE
 BEGIN
     v_fecha_salida := ultima_fecha_salida(2);
     IF v_fecha_salida IS NOT NULL THEN
-        dbms_output.put_line('La última fecha de salida del cliente 2 es: ' || to_char(v_fecha_salida, 'DD-MON-YYYY'));
+        dbms_output.put_line('La Ãºltima fecha de salida del cliente 2 es: ' || to_char(v_fecha_salida, 'DD-MON-YYYY'));
     ELSE
         dbms_output.put_line('No hay registros de salida para el cliente 2.');
     END IF;
@@ -277,7 +277,7 @@ BEGIN
     FETCH c_metodo_pago INTO v_metodo_pago;
     CLOSE c_metodo_pago;
     IF v_metodo_pago IS NOT NULL THEN
-        RETURN 'Sí';
+        RETURN 'SÃ­';
     ELSE
         RETURN 'No';
     END IF;
@@ -290,7 +290,7 @@ DECLARE
     resultado VARCHAR2(2);
 BEGIN
     resultado := verificar_metodo_pago_cliente(123, 'Tarjeta');
-    dbms_output.put_line('¿El cliente 123 ha usado tarjeta? ' || resultado);
+    dbms_output.put_line('Â¿El cliente 123 ha usado tarjeta? ' || resultado);
 END;
 /
 
@@ -419,7 +419,7 @@ BEGIN
     v_promedio_estancia := promedio_estancia;
     dbms_output.put_line('El promedio de estancia de los clientes es de '
                          || v_promedio_estancia
-                         || ' días.');
+                         || ' dÃ­as.');
 END;
 /
 
@@ -461,7 +461,7 @@ DECLARE
 BEGIN
     v_num_reservaciones := contar_reservaciones_periodo(TO_DATE('2024-10-05', 'YYYY-MM-DD'), TO_DATE('2024-12-31', 'YYYY-MM-DD'));
 
-    dbms_output.put_line('Número total de reservaciones en octubre a diciembre del 2024: ' || v_num_reservaciones);
+    dbms_output.put_line('NÃºmero total de reservaciones en octubre a diciembre del 2024: ' || v_num_reservaciones);
 END;
 /
 
@@ -497,7 +497,7 @@ BEGIN
             v_id_habitacion,
             v_num_reservaciones;
         EXIT WHEN rc_result%notfound;
-        dbms_output.put_line('Habitación ID: '
+        dbms_output.put_line('HabitaciÃ³n ID: '
                              || v_id_habitacion
                              || ' ha sido reservada '
                              || v_num_reservaciones
@@ -630,9 +630,109 @@ DECLARE
     v_num_clientes NUMBER;
 BEGIN
     v_num_clientes := obtener_total_clientes_unicos;
-    DBMS_OUTPUT.PUT_LINE('Número total de clientes únicos: ' || v_num_clientes);
+    DBMS_OUTPUT.PUT_LINE('NÃºmero total de clientes Ãºnicos: ' || v_num_clientes);
 END;
 
+
+
+--Funcion Salario Promedio
+CREATE OR REPLACE FUNCTION OBTENER_SALARIO_PROMEDIO
+RETURN NUMBER IS
+    SALARIO_PROMEDIO NUMBER;
+BEGIN
+    SELECT AVG(SALARIO) INTO SALARIO_PROMEDIO FROM EMPLEADO_TB;
+    RETURN SALARIO_PROMEDIO;
+END;
+
+DECLARE
+    SALARIO_PROMEDIO NUMBER;
+BEGIN
+    SALARIO_PROMEDIO := OBTENER_SALARIO_PROMEDIO();
+    DBMS_OUTPUT.PUT_LINE('El salario promedio es: ' || SALARIO_PROMEDIO);
+END;
+
+
+--Funcion Listar Empleados Activos
+CREATE OR REPLACE FUNCTION LISTAR_EMPLEADOS_ACTIVOS
+RETURN SYS_REFCURSOR IS
+    CURSOR_EMPLEADOS SYS_REFCURSOR;
+BEGIN
+    OPEN CURSOR_EMPLEADOS FOR 
+    SELECT * FROM EMPLEADO_TB WHERE ESTADO = 'Activo';
+    RETURN CURSOR_EMPLEADOS;
+END;
+
+DECLARE
+    CURSOR_EMPLEADOS SYS_REFCURSOR;
+    EMPLEADO_REG EMPLEADO_TB%ROWTYPE;
+BEGIN
+    CURSOR_EMPLEADOS := LISTAR_EMPLEADOS_ACTIVOS();
+    LOOP
+        FETCH CURSOR_EMPLEADOS INTO EMPLEADO_REG;
+        EXIT WHEN CURSOR_EMPLEADOS%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('ID: ' || EMPLEADO_REG.ID_EMPLEADO || ' Puesto: ' || EMPLEADO_REG.PUESTO || ' Salario: ' || EMPLEADO_REG.SALARIO);
+    END LOOP;
+    CLOSE CURSOR_EMPLEADOS;
+END;
+
+--Funcion Obtener Nombre Completo
+CREATE OR REPLACE FUNCTION OBTENER_NOMBRE_COMPLETO (
+    P_ID_PERSONA IN NUMBER
+) RETURN NVARCHAR2 IS
+    NOMBRE_COMPLETO NVARCHAR2(300);
+BEGIN
+    SELECT NOMBRE || ' ' || PRIMER_APELLIDO || ' ' || SEGUNDO_APELLIDO 
+    INTO NOMBRE_COMPLETO
+    FROM PERSONA_TB
+    WHERE ID_PERSONA = P_ID_PERSONA;
+    RETURN NOMBRE_COMPLETO;
+END;
+
+DECLARE
+    NOMBRE_COMPLETO NVARCHAR2(300);
+BEGIN
+    NOMBRE_COMPLETO := OBTENER_NOMBRE_COMPLETO(4); --Id Persona
+    DBMS_OUTPUT.PUT_LINE('Nombre completo: ' || NOMBRE_COMPLETO);
+END;
+
+--Funcion Correo Cliente
+CREATE OR REPLACE FUNCTION OBTENER_CORREO_CLIENTE (
+    P_ID_CLIENTE IN NUMBER
+) RETURN NVARCHAR2 IS
+    CORREO NVARCHAR2(100);
+BEGIN
+    SELECT P.CORREO
+    INTO CORREO
+    FROM CLIENTE_TB C
+    JOIN PERSONA_TB P ON C.ID_PERSONA = P.ID_PERSONA
+    WHERE C.ID_CLIENTE = P_ID_CLIENTE;
+    RETURN CORREO;
+END;
+
+DECLARE
+    CORREO NVARCHAR2(100);
+BEGIN
+    CORREO := OBTENER_CORREO_CLIENTE(42);  --Id de Cliente 
+    DBMS_OUTPUT.PUT_LINE('Correo electrÃ³nico: ' || CORREO);
+END;
+
+--Funcion total de Salarios
+
+CREATE OR REPLACE FUNCTION SUMA_TOTAL_SALARIOS
+RETURN NUMBER IS
+    TOTAL_SALARIOS NUMBER;
+BEGIN
+    SELECT SUM(SALARIO) INTO TOTAL_SALARIOS FROM EMPLEADO_TB;
+    RETURN TOTAL_SALARIOS;
+END;
+
+
+DECLARE
+    TOTAL_SALARIOS NUMBER;
+BEGIN
+    TOTAL_SALARIOS := SUMA_TOTAL_SALARIOS();
+    DBMS_OUTPUT.PUT_LINE('La suma total de los salarios es: ' || TOTAL_SALARIOS);
+END;
 
 
 
