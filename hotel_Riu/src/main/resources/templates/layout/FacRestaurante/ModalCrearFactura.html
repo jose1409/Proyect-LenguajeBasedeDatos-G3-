@@ -1,0 +1,76 @@
+<div th:fragment="ListaReservacionesRestaurante">
+    <!-- Modal para mostrar todas las reservaciones -->
+    <div class="modal fade" id="modalListaReservaciones" tabindex="-1" aria-labelledby="modalListaReservacionesLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalListaReservacionesLabel">Lista de Reservaciones de Restaurante</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <table class="table align-middle mb-0 bg-white">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th># Reservación</th>
+                                        <th>Cliente</th>
+                                        <th>Hora Entrada</th>
+                                        <th>Fecha Reservación</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Iterar sobre las reservaciones -->
+                                    <tr th:each="reservacion : ${ReservacionRestaurante}">
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="ms-3">
+                                                    <p class="fw-bold mb-1" th:text="${reservacion.idReservacionRestaurante}"></p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="fw-normal mb-1" th:text="${reservacion.cliente.persona.nombre + ' ' + reservacion.cliente.persona.primer_apellido + ' ' + reservacion.cliente.persona.segundo_apellido}"></p>
+                                        </td>
+                                        <td>
+                                            <p class="fw-normal mb-1" th:text="${reservacion.horaEntrada}"></p>
+                                        </td>
+                                        <td>
+                                            <p class="fw-normal mb-1" th:text="${#dates.format(reservacion.fechaReservacion, 'dd-MM-yyyy')}"></p>
+                                        </td>
+                                        <td>
+                                            <button 
+                                                th:onclick="'loadComponent(\'/facRestaurante/crear/' + ${reservacion.idReservacionRestaurante} + '\', \'GET\')'"
+                                                type="button"
+                                                class="btn btn-success btn-rounded btn-sm fw-bold"
+                                                data-bs-dismiss="modal"
+                                                data-mdb-ripple-color="dark">
+                                                Seleccionar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="loadComponent('/facRestaurante/inicio')" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script para abrir automáticamente el modal cuando se carga el fragmento -->
+    <script th:inline="javascript">
+        var myModal = new bootstrap.Modal(document.getElementById('modalListaReservaciones'));
+        myModal.show();
+    </script>
+</div>
+
+
+
+
+
+
