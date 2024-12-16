@@ -174,6 +174,77 @@ end;
 /
 
 
+create or replace PROCEDURE OBTENER_HORARIOS(
+    P_CURSOR OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+    -- Abrir el cursor y seleccionar todos los registros de la tabla SERVICIO_TB
+    OPEN P_CURSOR FOR
+    SELECT ID_HORARIO, FECHA_HORARIO, HORA_APERTURA, HORA_CIERRE
+    FROM HORARIO_TB;
+END;
+
+INSERT INTO DIRECCION_TB (ID_DIRECCION, PROVINCIA, CANTON, DISTRITO, DIRECCION_DETALLADA) VALUES (1, 'San José', 'Escazú', 'San Rafael', 'Centro Comercial Multiplaza');
+INSERT INTO DIRECCION_TB (ID_DIRECCION, PROVINCIA, CANTON, DISTRITO, DIRECCION_DETALLADA) VALUES (2, 'Heredia', 'Belén', 'Asunción', 'Zona Franca América, Edificio 5');
+
+--
+
+--EXECUTE SP_DELETE_HOTEL(1);
+/
+CREATE OR REPLACE PROCEDURE OBTENER_HOTEL(
+    RESULTADO OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+    OPEN RESULTADO FOR
+    SELECT ID_HOTEL,d.direccion_detallada,hr.fecha_horario,NOMBRE, TELEFONO, CORREO
+    FROM HOTEL_TB h inner join direccion_tb d
+    on h.id_direccion = d.id_direccion
+    inner join horario_tb hr
+    on h.id_horario = hr.id_horario;
+END;
+/
+
+--
+create or replace PROCEDURE OBTENER_HORARIO_POR_ID(
+    P_ID_HORARIO IN HORARIO_TB.ID_HORARIO%TYPE, -- ID del horario que se desea consultar
+    RESULTADO OUT SYS_REFCURSOR                 -- Cursor para devolver el resultado
+)
+AS
+BEGIN
+    -- Abrir un cursor con la consulta SELECT filtrada por ID_HORARIO
+    OPEN RESULTADO FOR
+    SELECT ID_HORARIO, FECHA_HORARIO, HORA_APERTURA, HORA_CIERRE
+    FROM HORARIO_TB
+    WHERE ID_HORARIO = P_ID_HORARIO;
+END;
+--
+
+create or replace PROCEDURE OBTENER_DIRECCIONES(
+    RESULTADO OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+    OPEN RESULTADO FOR
+    SELECT ID_DIRECCION,PROVINCIA, CANTON, DISTRITO,DIRECCION_DETALLADA
+    FROM DIRECCION_TB;
+END;
+
+--
+create or replace PROCEDURE OBTENER_DIRECCION_POR_ID(
+    P_ID_DIRECCION IN DIRECCION_TB.ID_DIRECCION%TYPE, 
+    RESULTADO OUT SYS_REFCURSOR        
+)
+AS
+BEGIN
+    OPEN RESULTADO FOR
+    SELECT ID_DIRECCION,PROVINCIA, CANTON, DISTRITO,DIRECCION_DETALLADA
+    FROM DIRECCION_TB
+    WHERE ID_DIRECCION = P_ID_DIRECCION;
+END;
+---
+
 
     
     
