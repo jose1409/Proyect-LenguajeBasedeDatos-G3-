@@ -1,0 +1,46 @@
+<!-- Modal para Mostrar Platillos -->
+<div class="modal fade" id="detalleModal" tabindex="-1" aria-labelledby="detalleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detalleModalLabel">Platillos Consumidos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nombre del Platillo</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Iterar sobre los platillos -->
+                        <tr th:each="platillo : ${platillos}">
+                            <td th:text="${platillo.nombre}"></td>
+                            <td th:text="${platillo.precio}"></td>
+                            <td th:text="${platillo.cantidad}"></td>
+                            <td th:text="${#numbers.formatDecimal(platillo.precio * platillo.cantidad, 2)}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Script para abrir automáticamente el modal cuando se carga el fragmento -->
+<script th:inline="javascript">
+    var myModal = new bootstrap.Modal(document.getElementById('modalDetallesReservacion'));
+    myModal.show();
+</script>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,126 @@
+<div th:fragment="AgregarReservacionRestaurante">
+    <!-- Formulario para agregar la factura de la reservación del restaurante -->
+    <div class="container mt-4">
+        <h3 class="text-center">Crear Factura para la Reservación del Restaurante</h3>
+
+        <!-- Información de la reservación -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Detalles de la Reservación</h5>
+                <p><strong>Cliente:</strong> <span th:text="${reservacionHabitacion.cliente.persona.nombre + ' ' + reservacionHabitacion.cliente.persona.primer_apellido + ' ' + reservacionHabitacion.cliente.persona.segundo_apellido}"></span></p>
+                <p><strong>Fecha de la Reservación:</strong> <span th:text="${#dates.format(reservacionHabitacion.fechaReservacion, 'dd-MM-yyyy')}"></span></p>
+                <p><strong>Hora de Entrada:</strong> <span th:text="${reservacionHabitacion.horaEntrada}"></span></p>
+            </div>
+        </div>
+
+        <!-- Selección de platillos -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Seleccionar Platillos</h5>
+                <form th:action="@{/facRestaurante/guardar}" method="post">
+                    <input type="hidden" name="idReservacionRestaurante" th:value="${reservacionHabitacion.idReservacionRestaurante}" />
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="platillo : ${platillos}">
+                                    <td th:text="${platillo.nombre}"></td>
+                                    <td th:text="${'₡' + platillo.precio}"></td>
+                                    <td>
+                                        <input type="number" name="${platillo.cantidad}" min="0" max="20" value="0" class="form-control form-control-sm" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+        </div>
+
+        <!-- Información adicional de la factura -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Detalles de la Factura</h5>
+                <div class="mb-3">
+                    <label for="metodoPago" class="form-label">Método de Pago:</label>
+                    <select class="form-select" id="metodoPago" name="metodoPago" required>
+                        <option value="">Seleccionar</option>
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Tarjeta">Tarjeta</option>
+                        <option value="Transferencia">Transferencia</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="descuento" class="form-label">Descuento (%):</label>
+                    <input type="number" class="form-control" id="descuento" name="descuento" min="0" max="100" step="1" value="0" />
+                </div>
+                <div class="mb-3">
+                    <label for="totalPagar" class="form-label">Total a Pagar (₡):</label>
+                    <input type="text" class="form-control" id="totalPagar" name="totalPagar" readonly />
+                </div>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">Guardar Factura</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script para calcular el total a pagar automáticamente -->
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", () => {
+        const inputsCantidad = document.querySelectorAll('input[name^="platillos"]');
+        const descuentoInput = document.getElementById("descuento");
+        const totalPagarInput = document.getElementById("totalPagar");
+
+        const platillos = /*[[${platillos}]]*/ [];
+        let precios = {};
+
+        // Crear mapa de precios de los platillos
+        platillos.forEach((platillo) => {
+            precios[platillo.idPlatillo] = platillo.precio;
+        });
+
+        function calcularTotal() {
+            let total = 0;
+
+            inputsCantidad.forEach((input) => {
+                const platilloId = input.name.match(/\d+/)[0];
+                const cantidad = parseInt(input.value) || 0;
+                total += cantidad * precios[platilloId];
+            });
+
+            // Aplicar descuento
+            const descuento = parseInt(descuentoInput.value) || 0;
+            total -= total * (descuento / 100);
+
+            totalPagarInput.value = total.toFixed(2);
+        }
+
+        // Listeners para recalcular el total
+        inputsCantidad.forEach((input) =>
+            input.addEventListener("input", calcularTotal)
+        );
+        descuentoInput.addEventListener("input", calcularTotal);
+    });
+</script>
+
+<script th:inline="javascript">
+    // Abre el modal automáticamente
+    var myModal = new bootstrap.Modal(document.getElementById('ListaReservacionesRestaurante'));
+    myModal.show();
+
+    // Supongamos que se abre un documento al hacer clic en un enlace
+    document.getElementById('abrirDocumento').addEventListener('click', function() {
+        // Lógica para abrir el documento (puedes poner aquí el código correspondiente)
+        console.log("Documento abierto");
+
+        // Cierra el modal automáticamente
+        myModal.hide();
+    });
+</script>

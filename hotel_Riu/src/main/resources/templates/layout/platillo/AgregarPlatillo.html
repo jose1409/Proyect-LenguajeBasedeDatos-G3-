@@ -1,0 +1,41 @@
+<div th:fragment="AgregarPlatillo">
+    <div class="container-fluid">
+        <div class="row p-4 mb-5" style="background-color: white">
+            <div class="d-flex align-items-center" style="gap: 12px;">
+                <p class="mb-0 h1">Platillo</p>
+                <p class="mb-0 mt-2 h4">Gestión de Platillos</p>
+                <button onclick="loadComponent('/platillo/inicio')" class="btn btn-primary">Volver</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <form class="form-floating" th:action="@{/platillo/guardar}" th:object="${platillo}" method="post">
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" id="floatingNombre" th:field="*{nombre}" placeholder="Nombre del Platillo">
+                <label for="floatingNombre">Nombre del Platillo</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="number" class="form-control" id="floatingPrecio" th:field="*{precio}" placeholder="Precio">
+                <label for="floatingPrecio">Precio</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="number" class="form-control" id="floatingCantidad" th:field="*{cantidad}" placeholder="Cantidad">
+                <label for="floatingCantidad">Cantidad Disponible</label>
+            </div>
+
+            <!-- Selección del restaurante -->
+            <div class="mb-3 form-floating">
+                <select class="form-select" id="floatingRestaurante" th:field="*{restaurante.idRestaurante}">
+                    <option value="" disabled selected>Selecciona un Restaurante</option>
+                    <option th:each="restaurante : ${Restaurantes}" 
+                            th:value="${restaurante.idRestaurante}" 
+                            th:text="${restaurante.nombre}">Restaurante</option>
+                </select>
+                <label for="floatingRestaurante">Restaurante</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar Platillo</button>
+        </form>
+    </div>
+</div>
